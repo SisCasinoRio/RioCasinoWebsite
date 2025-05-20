@@ -1,0 +1,15 @@
+{
+    "name": "asus/rio_casino",
+    "autoload": {
+        "psr-4": {
+            "Asus\\RioCasino\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "christian castro",
+            "email": "chriscastro845@gmail.com"
+        }
+    ],
+    "require": {}
+}
