@@ -128,10 +128,10 @@ $rol = $_SESSION['rol'];
 </nav>
 
 <!-- Main layout -->
-<div class="container-fluid">
-    <div class="row">
+<div class="container-fluid p-0">
+    <div class="d-flex flex-column flex-md-row">
         <!-- Sidebar -->
-        <div class="col-md-2 sidebar">
+        <div class="sidebar flex-shrink-0">
             <?php if ($rol === 'SuperAdmin'): ?>
                 <a href="#" class="active" onclick="cargarContenido('general.php', event)">
                     <i class="bi bi-house-door-fill me-2"></i>General
