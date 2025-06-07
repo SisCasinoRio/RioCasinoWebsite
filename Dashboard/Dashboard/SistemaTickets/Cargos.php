@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 // Eliminar
-if (isset($_GET["accion"], $_GET["Cargo_id"]) && $_GET["accion"] === "eliminar") {
+if (isset($_GET["accion"]) && $_GET["accion"] === "eliminar" && isset($_GET["Cargo_id"])) {
     $id = intval($_GET["Cargo_id"]);
     $stmt = $mysqli->prepare("DELETE FROM cargos WHERE Cargo_id = ?");
     $stmt->bind_param("i", $id);
@@ -64,15 +64,16 @@ $cargos = $mysqli->query("SELECT * FROM cargos ORDER BY Cargo_id DESC");
         <div class="alert alert-info"><?= htmlspecialchars($msg) ?></div>
     <?php endif; ?>
 
+    <!-- Botón para agregar -->
     <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Cargo</button>
 
     <table class="table table-bordered">
         <thead class="table-dark">
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Acciones</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
         </thead>
         <tbody>
         <?php while ($cargo = $cargos->fetch_assoc()): ?>
