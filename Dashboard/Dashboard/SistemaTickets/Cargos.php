@@ -37,9 +37,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 // Eliminar
-if (isset($_GET["accion"]) && $_GET["accion"] === "eliminar" && isset($_GET["Cargo_id"])) {
+if (isset($_GET["accion"], $_GET["Cargo_id"]) && $_GET["accion"] === "eliminar") {
     $id = intval($_GET["Cargo_id"]);
-    $stmt = $mysqli->prepare("DELETE FROM cargos WHERE id = ?");
+    $stmt = $mysqli->prepare("DELETE FROM cargos WHERE Cargo_id = ?");
     $stmt->bind_param("i", $id);
     $msg = $stmt->execute() ? "Cargo eliminado correctamente." : "Error al eliminar el cargo.";
     $stmt->close();
@@ -64,16 +64,15 @@ $cargos = $mysqli->query("SELECT * FROM cargos ORDER BY Cargo_id DESC");
         <div class="alert alert-info"><?= htmlspecialchars($msg) ?></div>
     <?php endif; ?>
 
-    <!-- Botón para agregar -->
     <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Cargo</button>
 
     <table class="table table-bordered">
         <thead class="table-dark">
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Acciones</th>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
         </thead>
         <tbody>
         <?php while ($cargo = $cargos->fetch_assoc()): ?>
@@ -81,17 +80,14 @@ $cargos = $mysqli->query("SELECT * FROM cargos ORDER BY Cargo_id DESC");
                 <td><?= $cargo['Cargo_id'] ?></td>
                 <td><?= htmlspecialchars($cargo['nombre']) ?></td>
                 <td>
-                    <!-- Ver -->
                     <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalVer<?= $cargo['Cargo_id'] ?>">Ver</button>
-                    <!-- Editar -->
                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalEditar<?= $cargo['Cargo_id'] ?>">Editar</button>
-                    <!-- Eliminar -->
-                    <a href="?accion=eliminar&id=<?= $cargo['Cargo_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este cargo?')">Eliminar</a>
+                    <a href="?accion=eliminar&Cargo_id=<?= $cargo['Cargo_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este cargo?')">Eliminar</a>
                 </td>
             </tr>
 
             <!-- Modal Ver -->
-            <div class="modal fade" id="modalVer<?= $cargo['id'] ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="modalVer<?= $cargo['Cargo_id'] ?>" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header bg-info text-white">
@@ -99,7 +95,7 @@ $cargos = $mysqli->query("SELECT * FROM cargos ORDER BY Cargo_id DESC");
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                   </div>
                   <div class="modal-body">
-                    <p><strong>ID:</strong> <?= $cargo['id'] ?></p>
+                    <p><strong>ID:</strong> <?= $cargo['Cargo_id'] ?></p>
                     <p><strong>Nombre:</strong> <?= htmlspecialchars($cargo['nombre']) ?></p>
                   </div>
                 </div>
@@ -107,7 +103,7 @@ $cargos = $mysqli->query("SELECT * FROM cargos ORDER BY Cargo_id DESC");
             </div>
 
             <!-- Modal Editar -->
-            <div class="modal fade" id="modalEditar<?= $cargo['id'] ?>" tabindex="-1" aria-hidden="true">
+            <div class="modal fade" id="modalEditar<?= $cargo['Cargo_id'] ?>" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog">
                 <form method="post" class="modal-content">
                   <div class="modal-header bg-primary text-white">
@@ -116,7 +112,7 @@ $cargos = $mysqli->query("SELECT * FROM cargos ORDER BY Cargo_id DESC");
                   </div>
                   <div class="modal-body">
                     <input type="hidden" name="accion" value="editar">
-                    <input type="hidden" name="id" value="<?= $cargo['id'] ?>">
+                    <input type="hidden" name="Cargo_id" value="<?= $cargo['Cargo_id'] ?>">
                     <div class="mb-3">
                         <label>Nombre del cargo:</label>
                         <input type="text" name="nombre" class="form-control" value="<?= htmlspecialchars($cargo['nombre']) ?>" required>
@@ -128,7 +124,6 @@ $cargos = $mysqli->query("SELECT * FROM cargos ORDER BY Cargo_id DESC");
                 </form>
               </div>
             </div>
-
         <?php endwhile; ?>
         </tbody>
     </table>
