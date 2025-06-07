@@ -69,13 +69,24 @@ $rol = $_SESSION['rol'];
         }
 
         .sidebar {
-            height: 100vh;
-            background-color: #212529;
-            color: var(--text-light);
-            display: flex;
-            flex-direction: column;
-            padding-top: 1rem;
-        }
+    width: 100%;
+    height: auto;
+    background-color: #212529;
+    color: var(--text-light);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        flex-direction: column;
+    }
+}
+
 
         .sidebar a,
         .sidebar .dropdown-toggle {
@@ -89,7 +100,11 @@ $rol = $_SESSION['rol'];
             margin: 0.25rem 1rem;
         }
 
-        .sidebar a:hover,
+        .sidebar a {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+}
+
         .sidebar .active,
         .dropdown-item:hover {
             background-color: var(--color-verde);
@@ -110,11 +125,16 @@ $rol = $_SESSION['rol'];
             background-color: var(--color-hover);
         }
 
-        .content-frame {
-            width: 100%;
-            height: calc(100vh - 56px);
-            border: none;
-        }
+       .content-frame {
+    width: 100%;
+    min-height: 80vh;
+    height: 100%;
+    border: none;
+}
+.sidebar {
+    overflow-x: auto;
+}
+
     </style>
 </head>
 <body>
@@ -171,9 +191,10 @@ $rol = $_SESSION['rol'];
         </div>
 
         <!-- Contenido principal -->
-        <div class="col-md-10 p-0">
-            <iframe src="general.php" name="contenido" class="content-frame" id="iframeContenido"></iframe>
-        </div>
+      <div class="flex-grow-1 p-0">
+    <iframe src="general.php" name="contenido" class="content-frame" id="iframeContenido"></iframe>
+</div>
+
     </div>
 </div>
 
