@@ -58,6 +58,29 @@ if ($result) {
     <meta charset="UTF-8" />
     <title>Departamentos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+    table td, table th {
+        padding-top: 0.4rem;
+        padding-bottom: 0.4rem;
+        vertical-align: middle;
+    }
+
+    .table td .btn {
+        margin: 1px 0;
+        padding: 0.25rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    h2.mb-4 {
+        margin-bottom: 1rem !important;
+    }
+
+    .btn {
+        font-size: 0.9rem;
+    }
+</style>
+
 </head>
 <body class="bg-light">
 <div class="container py-4">
@@ -69,7 +92,7 @@ if ($result) {
 
     <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modalAgregar">Agregar Departamento</button>
 
-    <table class="table table-striped table-bordered bg-white">
+    <table class="table table-sm table-striped table-bordered bg-white">
         <thead class="table-dark">
             <tr>
                 <th>ID</th>
